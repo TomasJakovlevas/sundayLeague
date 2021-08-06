@@ -1,0 +1,20 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+* {
+  font-family: 'ABeeZee', sans-serif;
+}
+
+/* Buttons */
+.startBtn {
+  background-color: white;
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.startBtn:hover {
+  color: white;
+  background-color: red;
+}

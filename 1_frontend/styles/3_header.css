@@ -1,0 +1,34 @@
+/* MOBILE FIRST */
+/* HEADER */
+
+header {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: chartreuse;
+}
+
+header nav ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+header nav li {
+  padding: 20px 10px;
+  border-top: 3px solid transparent;
+}
+
+header nav li:hover {
+  border-top: 3px solid black;
+}
+
+header nav li:active {
+  border-top: 3px solid black;
+}
+
+header nav li a {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
