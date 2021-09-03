@@ -1,7 +1,10 @@
 section {
   height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1556816214-6d16c62fbbf6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');
+  /* background-image: url('https://images.unsplash.com/photo-1617348380507-4092d0523459?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHN1bnNldCUyMHNwb3J0fGVufDB8MXwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'); */
+  background-color: rgb(154, 28, 238);
+
   background-size: cover;
+  background-position: center;
 }
 
 section div {
@@ -12,7 +15,7 @@ section div {
   align-content: center;
   height: 100%;
   color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.6);
+  /* background-color: rgba(55, 34, 80, 0.8); */
   padding: 20px;
 }
 

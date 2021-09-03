@@ -1,0 +1,25 @@
+SUNDAY LEAGUE
+
+ProfilePage {
+    Atvaizduoju artejancius eventus, kuriuose dalyvauju
+    Evento stasusas keiciasi : ON GOING; COMPLETED; CANCELED
+
+    Galima matyti savo aktyvuma, completed eventu skaiciu, sukurtu eventu skaiciu
+    Gal rewardus su mileston'ais butu visai nieko
+}
+
+myGamesPage: {
+    Didelis mygtukas sukurti eventui
+
+    Listas eventu kuriuos sukuriau, kad galeciau juos valdyti ir stebeti
+
+    Sukurimo forma {
+        eventID:
+        creatorID:
+        location:
+        time:
+        category:
+        numberOfPlayers:
+        otherDetails:
+    }
+}

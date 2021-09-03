@@ -4,17 +4,53 @@
   font-family: 'ABeeZee', sans-serif;
 }
 
+.hidden {
+  display: none;
+}
+
 /* Buttons */
-.startBtn {
-  background-color: white;
-  width: 100%;
+
+.btn {
   padding: 12px 0;
   border: none;
   border-radius: 10px;
   font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.okBtn {
+  background-color: lightgreen;
+  width: 90%;
+  text-align: center;
+}
+
+.okBtn:hover {
+  background-color: green;
+  color: white;
+}
+
+/* Link Buttons */
+.startBtn {
+  background-color: white;
+  width: 100%;
+}
+
+.startBtn:visited {
+  color: black;
 }
 
 .startBtn:hover {
   color: white;
   background-color: red;
+}
+
+/* Inputs */
+
+.textInput {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(192, 187, 187);
+  margin: 7px 0;
 }

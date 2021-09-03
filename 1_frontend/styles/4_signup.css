@@ -1,0 +1,40 @@
+main {
+  background-color: rgb(68, 58, 128);
+}
+
+.container {
+  height: 100vh;
+}
+
+.greetings {
+  height: 25vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: white;
+}
+
+.signupForm {
+  height: 40vh;
+  padding: 20px;
+  position: relative;
+}
+
+.signupForm form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.signupForm button {
+  width: 100%;
+  margin-top: 30px;
+}
+
+#formMessage {
+  color: rgb(250, 48, 48);
+  padding: 20px;
+}

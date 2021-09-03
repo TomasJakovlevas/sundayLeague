@@ -1,0 +1,68 @@
+.createGame {
+  border-bottom: 1px solid lightgray;
+  display: flex;
+}
+
+.create-btn {
+  background-color: rgb(66, 190, 66);
+  width: 90%;
+  margin: 20px auto;
+  color: white;
+  font-size: 20px;
+}
+
+.create-btn:hover {
+  cursor: pointer;
+  background-color: rgb(42, 170, 42);
+}
+
+.createdGames {
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.eventInfo {
+  display: flex;
+  flex-wrap: wrap;
+
+  padding: 20px;
+}
+.eventMap {
+  height: 100px;
+  width: 100px;
+  background-color: green;
+  margin-right: 15px;
+}
+
+.eventDetails {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.eventDetails h3 {
+  margin-bottom: 5px;
+}
+
+.eventStauts h4 {
+  background-color: red;
+  padding: 5px 0;
+  margin: 0 20px;
+  color: white;
+}
+
+.createGameFormContainer {
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+}
+
+.createGameFormContainer form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}

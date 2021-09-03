@@ -5,7 +5,7 @@ header {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: chartreuse;
+  background-color: rgb(68, 58, 128);
 }
 
 header nav ul {
@@ -20,7 +20,7 @@ header nav li {
 }
 
 header nav li:hover {
-  border-top: 3px solid black;
+  border-top: 3px solid gold;
 }
 
 header nav li:active {
@@ -30,5 +30,5 @@ header nav li:active {
 header nav li a {
   font-size: 20px;
   text-decoration: none;
-  color: black;
+  color: gold;
 }
