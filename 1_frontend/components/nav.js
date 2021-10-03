@@ -17,13 +17,15 @@ const renderNav = () => {
   const a4 = document.createElement('a');
 
   // -- adding content and atributes to created elements
-  a1.href = location.href.includes('pages') ? '../index.html' : 'index.html';
-  a1.innerHTML = '<i class="fas fa-home"></i>';
-
   a2.href = location.href.includes('pages')
     ? 'events.html'
     : './pages/events.html';
-  a2.innerHTML = '<i class="fas fa-stream"></i>';
+  a2.innerHTML = '<i class="fas fa-home"></i>';
+
+  // a2.href = location.href.includes('pages')
+  //   ? 'events.html'
+  //   : './pages/events.html';
+  // a2.innerHTML = '<i class="fas fa-stream"></i>';
 
   a3.href = location.href.includes('pages')
     ? 'myGames.html'
@@ -36,12 +38,11 @@ const renderNav = () => {
   a4.innerHTML = '<i class="fas fa-user"></i>';
 
   // -- append elements
-  li1.appendChild(a1);
   li2.appendChild(a2);
   li3.appendChild(a3);
   li4.appendChild(a4);
 
-  ul.append(li1, li2, li3, li4);
+  ul.append(li2, li3, li4);
 
   navElement.appendChild(ul);
 };

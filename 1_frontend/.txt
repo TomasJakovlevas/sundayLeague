@@ -21,5 +21,23 @@ myGamesPage: {
         category:
         numberOfPlayers:
         otherDetails:
+        status:
     }
 }
+
+09-21 
+    reikia iki galo sutvarkyti sukurtu zaidimu atvaizdavima.
+    icona kuris nurodytu kategorija, ir paspaudus ant evento atsirustu daugiau info apie ji su iframu. 
+
+    atvaizduoti visus eventus su savo kategorijom
+
+    profilyje atvaizduoti eventus kuriuose dalyvaus
+
+    sutvarkyt locationus
+
+10-02
+    reik taip pat pataisyti mongodb Schema, turi saugoti evente ne skaiciu zaideju o array
+
+    sukurti logika paspaudus dalyvausiu ir cancelinant
+
+    -- put route sutvarkyti iki galo updatinima, findbyidandupdate sugalvoti kaip perrasyti sena arreju i nauja

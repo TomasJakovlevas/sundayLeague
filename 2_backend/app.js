@@ -1,10 +1,11 @@
-import express, { response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import colors from 'colors';
 import dotenv from 'dotenv';
 
 import User from './models/userModel.js';
+import Event from './models/eventModel.js';
 
 dotenv.config();
 
@@ -28,6 +29,9 @@ mongoose
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}...`.yellow.underline.bold);
     });
+  })
+  .catch((err) => {
+    console.log(err);
   });
 
 // Routes
@@ -35,7 +39,32 @@ mongoose
 // GET: all events
 app.get('/', (req, res) => res.send('API is running...'));
 
-// GET: single event based on id
+// POST: create event
+app.post('/user/event/', (req, res) => {
+  const event = req.body;
+
+  const newEvent = new Event(event);
+
+  newEvent.save().then((result) => {
+    res.json(result);
+  });
+});
+
+// GET: all events based on creatorID
+app.get('/user/events/:id', async (req, res) => {
+  const userID = req.params.id;
+
+  await Event.find({ creatorID: userID }).then((response) => {
+    res.json(response);
+  });
+});
+
+// GET: all events
+app.get('/events/', async (req, res) => {
+  await Event.find({}).then((response) => {
+    res.json(response);
+  });
+});
 
 // POST: register new user
 app.post('/users/signup', (req, res) => {
@@ -72,8 +101,6 @@ app.post('/users/login', (req, res) => {
 
   User.find().then((result) => {
     let userFound = result.find((userDB) => {
-      // console.log(userDB.email, user.email, userDB.password, user.password);
-
       return userDB.email === user.email && userDB.password === user.password;
     });
 
@@ -91,4 +118,49 @@ app.post('/users/login', (req, res) => {
       });
     }
   });
+});
+
+// GET single user by id
+app.get('/user/:id', async (req, res) => {
+  await User.find({ _id: req.params.id }).then((response) => {
+    res.json(response[0]);
+  });
+});
+
+// PUT add player to event based on eventID and player/userID
+app.put('/user/event/:event/:user', async (req, res) => {
+  const eventID = req.params.event;
+  const userID = req.params.user;
+
+  const eventPlayers = await Event.findById(eventID)
+    .then((response) => {
+      return response._doc.players;
+    })
+    .catch((err) => console.log('evento error'));
+
+  // adding new Player to Event
+  let playerExist = false;
+
+  eventPlayers.forEach((item) => {
+    if (item.playerID === userID) {
+      playerExist = true;
+    }
+  });
+
+  if (playerExist) {
+    res.json({ message: 'Player already in game' });
+  } else {
+    eventPlayers.push({ playerID: userID });
+
+    Event.findByIdAndUpdate(
+      { _id: eventID },
+      { players: eventPlayers },
+      (err, response) => {
+        if (err) console.log('err');
+        if (response) {
+          res.json({ message: 'Player added successfully' });
+        }
+      }
+    );
+  }
 });

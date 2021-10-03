@@ -26,12 +26,27 @@
   flex-wrap: wrap;
 
   padding: 20px;
+  text-align: left;
 }
 .eventMap {
   height: 100px;
   width: 100px;
   background-color: green;
   margin-right: 15px;
+  background-size: cover;
+  background-position: center;
+}
+
+.football {
+  background-image: url('https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=881&q=80');
+}
+
+.basketball {
+  background-image: url('https://images.unsplash.com/photo-1624003656680-95c6a45cb499?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8YmFza2V0YmFsbHxlbnwwfDJ8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60');
+}
+
+.volleyball {
+  background-image: url('https://images.unsplash.com/photo-1513233552420-84d7157d6a35?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dm9sbGV5YmFsbHxlbnwwfDJ8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60');
 }
 
 .eventDetails {
@@ -43,6 +58,11 @@
 
 .eventDetails h3 {
   margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.eventDetails h3:hover {
+  text-decoration: underline;
 }
 
 .eventStauts h4 {
@@ -54,15 +74,88 @@
 
 .createGameFormContainer {
   position: absolute;
-  width: 90%;
-  top: 50%;
+  width: 100%;
+  /* top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  border: 2px solid black;
+  transform: translate(-50%, -50%); */
+  top: 0;
+  padding: 10px;
+  background-color: #f4f4f4;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .createGameFormContainer form {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+}
+
+.createGameFormContainer form h2 {
+  text-align: center;
+  margin: 30px 0 40px 0;
+}
+
+input,
+select,
+textarea,
+button {
+  padding: 10px 0;
+  margin: 0 0 20px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.createdGameMoreInfoContainer {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.createdGameDetails {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.createdGameDetails h2,
+.createdGameDetails h4 {
+  text-align: center;
+}
+
+.eventDetailsButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.eventDetailsButtons button {
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+p {
+  padding: 10px 0;
+  border-bottom: 1px solid black;
+}
+
+#playersList,
+#playerQueue {
+  padding: 10px 20px;
+}
+
+#playersList li,
+#playerQueue li {
+  padding: 10px;
+}
+
+#playersList li:nth-child(odd),
+#playerQueue li:nth-child(odd) {
+  background-color: white;
 }

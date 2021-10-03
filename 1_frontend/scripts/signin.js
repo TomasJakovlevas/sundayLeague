@@ -32,7 +32,7 @@ const loginUser = (e) => {
         e.target.userEmail.focus();
         formMessage.innerText = data.message;
       } else if (data.status === 'success') {
-        localStorage.setItem('user', JSON.stringify(data.userId));
+        localStorage.setItem('user', data.userId);
 
         location.href = 'http://127.0.0.1:5500/1_frontend/pages/profile.html';
       }
