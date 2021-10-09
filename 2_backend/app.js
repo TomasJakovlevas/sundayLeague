@@ -128,9 +128,9 @@ app.get('/user/:id', async (req, res) => {
 });
 
 // PUT add player to event based on eventID and player/userID
-app.put('/user/event/:event/:user', async (req, res) => {
-  const eventID = req.params.event;
-  const userID = req.params.user;
+app.put('/user/event/:event', async (req, res) => {
+  const eventID = req.body.event;
+  const userID = req.body.user;
 
   const eventPlayers = await Event.findById(eventID)
     .then((response) => {
@@ -148,7 +148,20 @@ app.put('/user/event/:event/:user', async (req, res) => {
   });
 
   if (playerExist) {
-    res.json({ message: 'Player already in game' });
+    const newPlayers = eventPlayers.filter((player) => {
+      return player.playerID !== userID;
+    });
+
+    Event.findByIdAndUpdate(
+      { _id: eventID },
+      { players: newPlayers },
+      (err, response) => {
+        if (err) console.log('err');
+        if (response) {
+          res.json({ status: 'removed' });
+        }
+      }
+    );
   } else {
     eventPlayers.push({ playerID: userID });
 
@@ -158,7 +171,7 @@ app.put('/user/event/:event/:user', async (req, res) => {
       (err, response) => {
         if (err) console.log('err');
         if (response) {
-          res.json({ message: 'Player added successfully' });
+          res.json({ status: 'joined' });
         }
       }
     );

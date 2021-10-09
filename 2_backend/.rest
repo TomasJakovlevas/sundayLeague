@@ -19,4 +19,4 @@ Content-Type: application/json
 GET  http://localhost:8080/user/events/611fb60246c79728ec2491f7
 
 ### update event by adding player
-PUT http://localhost:8080/user/event/6158411f19c4b767546c9164/6120cd4eb072e143b88a1b5b
+PUT http://localhost:8080/user/event/6158411f19c4b767546c9164/611fd701fc84c32e20c548bc

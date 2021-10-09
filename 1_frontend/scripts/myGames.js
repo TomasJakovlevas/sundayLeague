@@ -61,7 +61,7 @@ const renderEvents = () => {
 
         const playerCount = document.createElement('div');
         const counter = document.createElement('p');
-        counter.innerText = `Players: ${item.players}/${item.numberOfPlayers}`;
+        counter.innerText = `Players: ${item.players.length}/${item.numberOfPlayers}`;
         playerCount.appendChild(counter);
 
         eventDetailsChild.append(locationTitle, dateTitle);
