@@ -58,3 +58,54 @@
   width: 90%;
   margin: 10px auto;
 }
+
+/* event with more info */
+.eventMoreInfoContainer {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.eventMoreInfo_details {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.eventMoreInfo_details h2,
+.eventMoreInfo_details h4 {
+  text-align: center;
+}
+
+.eventDetailsButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.eventDetailsButtons button {
+  margin: 5px;
+  padding: 5px 10px;
+}
+
+p {
+  padding: 10px 0;
+  border-bottom: 1px solid black;
+}
+
+#playersList,
+#playerQueue {
+  padding: 10px 20px;
+}
+
+#playersList li,
+#playerQueue li {
+  padding: 10px;
+}
+
+#playersList li:nth-child(odd),
+#playerQueue li:nth-child(odd) {
+  background-color: white;
+}

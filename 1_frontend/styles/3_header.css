@@ -1,11 +1,15 @@
 /* MOBILE FIRST */
-/* HEADER */
 
 header {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: rgb(68, 58, 128);
+  background-color: var(--main-color);
+}
+
+.ulTab,
+.logo {
+  display: none;
 }
 
 header nav ul {
@@ -31,4 +35,59 @@ header nav li a {
   font-size: 20px;
   text-decoration: none;
   color: gold;
+}
+
+/* TABLET */
+@media screen and (min-width: 768px) {
+  header {
+    position: static;
+  }
+
+  .mobileNav {
+    display: none;
+  }
+
+  .ulTab,
+  .logo {
+    display: block;
+  }
+
+  .logo {
+    padding: 20px 10px;
+    font-size: 20px;
+    color: white;
+  }
+
+  header nav {
+    display: flex;
+    justify-content: space-between;
+
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ulTab {
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+  }
+
+  header nav li {
+    border-top: none;
+    padding: 20px 0 20px 40px;
+  }
+
+  header nav li:hover {
+    border-top: none;
+  }
+
+  header nav li a {
+    font-size: 16px;
+    color: white;
+  }
+
+  header nav li a:hover {
+    font-size: 18px;
+  }
 }

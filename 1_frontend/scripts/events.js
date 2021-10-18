@@ -8,31 +8,51 @@ import {
 // Variables
 // DOMelements
 const eventContainerElement = document.querySelector('.event__container');
+const eventMoreInfoContainerElement = document.querySelector(
+  '.eventMoreInfoContainer'
+);
+
+// Local Variables
+let allEvents;
 
 // Functions
 const renderAllEvents = () => {
-  fetch('http://localhost:8080/events/')
-    .then((response) => response.json())
-    .then((result) => {
-      const allEvents = result;
+  if (localStorage.getItem('user')) {
+    fetch('http://localhost:8080/events/')
+      .then((response) => response.json())
+      .then((result) => {
+        allEvents = result;
+        eventContainerElement.innerText = '';
 
-      eventContainerElement.innerText = '';
+        allEvents.forEach((item) => {
+          // Setting location
+          let location;
+          switch (item.category) {
+            case 'football':
+              location = footballStadiums[item.location];
+              break;
+            case 'basketball':
+              location = basketballLot[item.location];
+              break;
+            case 'voleyball':
+              location = volleyballCourt[item.location];
+              break;
+          }
 
-      allEvents.forEach((item) => {
-        const location = footballStadiums[item.location].name;
+          let playerExist = item.players.filter((item) => {
+            return item.playerID === localStorage.getItem('user');
+          });
 
-        let playerExist = item.players.filter((item) => {
-          return item.playerID === localStorage.getItem('user');
-        });
-
-        eventContainerElement.innerHTML += `
+          eventContainerElement.innerHTML += `
         <div class="event">
         <div class="eventInfo">
           <div class="eventMap ${item.category}">
           </div>
           <div class="eventDetails">
               <div>
-                <h3>${location}</h3>
+                <h3 class='locationTitle' data-index=${allEvents.indexOf(
+                  item
+                )}>${location.name}</h3>
                 <span>${item.date}</span>
               </div>
               <p>Players: ${item.players.length}/${item.numberOfPlayers}</p>
@@ -41,18 +61,27 @@ const renderAllEvents = () => {
       <div class="eventStauts ${item.status}">
         <h4>${item.status}</h4>
         <button data-id=${item._id} class='joinBtn'>${
-          playerExist.length ? 'CANCEL' : 'JOIN'
-        }</button>
+            playerExist.length ? 'CANCEL' : 'JOIN'
+          }</button>
       </div>
         `;
-      });
+        });
 
-      // DOMelements
-      const joinBtn = document.querySelectorAll('.joinBtn');
-      joinBtn.forEach((btn) => {
-        btn.addEventListener('click', (e) => joinEvent(e));
+        // buttons
+        const joinBtn = document.querySelectorAll('.joinBtn');
+        joinBtn.forEach((btn) => {
+          btn.addEventListener('click', (e) => joinEvent(e));
+        });
+
+        // clickable title
+        const locationTitles = document.querySelectorAll('.locationTitle');
+        locationTitles.forEach((title) => {
+          title.addEventListener('click', (e) => showEventDetails(e));
+        });
       });
-    });
+  } else {
+    window.location.href = '../index.html';
+  }
 };
 
 const joinEvent = (e) => {
@@ -61,8 +90,8 @@ const joinEvent = (e) => {
     user: localStorage.getItem('user'),
   };
 
-  // Sending data to DB...
-  fetch(`http://localhost:8080/user/event/${data.event}`, {
+  // Sending data to DB
+  fetch(`http://localhost:8080/user/event/`, {
     method: 'PUT',
     headers: {
       'Content-type': 'application/json',
@@ -79,6 +108,98 @@ const joinEvent = (e) => {
         renderAllEvents();
       }
     });
+};
+
+const showEventDetails = (e) => {
+  const itemIndex = e.target ? e.target.dataset.index : e;
+  const event = allEvents[itemIndex];
+  eventMoreInfoContainerElement.classList.remove('hidden');
+
+  // Setting location
+  let location;
+  switch (event.category) {
+    case 'football':
+      location = footballStadiums[event.location];
+      break;
+    case 'basketball':
+      location = basketballLot[event.location];
+      break;
+    case 'voleyball':
+      location = volleyballCourt[event.location];
+      break;
+  }
+
+  eventMoreInfoContainerElement.innerHTML = `
+  <div class="eventMoreInfo_details">
+  <h2>${event.category}: ${location.district}</h2>
+<h4>${event.date} || ${event.time}</h4>
+<div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5487.992559802447!2d25.293972326518986!3d54.66709635641924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd944688f7acd3%3A0x8460aad5fe86f78!2sLFF%20stadionas!5e0!3m2!1slt!2slt!4v1630681268238!5m2!1slt!2slt" width="100%" height="200px" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
+<span>Kaina: ${event.price}€</span>
+<span>${event.status}</span>
+<p id='playerCounter'>Zaideju: ${event.players.length}/${event.numberOfPlayers}</p>
+<ol id="playersList">
+</ol>
+
+<p>Eileje</p>
+<ol id="playerQueue">
+</ol>
+
+<div class="eventDetailsButtons">
+<button data-id=${event._id} class='joinBtns'></button>
+</div>
+<button id="closeEvent">x</button>
+
+</div>
+  `;
+
+  // DOMelements
+  const closeEventButton = document.getElementById('closeEvent');
+  const playerListElement = document.getElementById('playersList');
+  const playerQueueElement = document.getElementById('playerQueue');
+  const joinBtns = document.querySelector('.joinBtns');
+
+  const playerExist = event.players.find(
+    (player) => player.playerID === localStorage.getItem('user')
+  );
+  joinBtns.innerText = playerExist ? 'Cancel' : 'Join';
+  joinBtns.addEventListener('click', (e) => joinEventAndUpdate(e));
+
+  const closeEvent = () => {
+    eventMoreInfoContainerElement.classList.add('hidden');
+  };
+
+  // Functions
+
+  const renderList = () => {
+    playerListElement.innerHTML = '';
+
+    for (let x = 0; x < event.players.length; x++) {
+      if (x < event.numberOfPlayers) {
+        playerListElement.innerHTML += `
+        <li>
+          ${event.players[x].username}
+        </li>
+        `;
+      } else {
+        playerQueueElement.innerHTML += `
+        <li>
+          ${event.players[x].username}
+        </li>
+        `;
+      }
+    }
+  };
+
+  const joinEventAndUpdate = async (e) => {
+    joinEvent(e);
+    setTimeout(() => {
+      showEventDetails(itemIndex);
+    }, 300);
+  };
+
+  // Events
+  closeEventButton.addEventListener('click', closeEvent);
+  renderList();
 };
 
 // Events

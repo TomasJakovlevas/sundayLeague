@@ -35,8 +35,6 @@ mongoose
   });
 
 // Routes
-
-// GET: all events
 app.get('/', (req, res) => res.send('API is running...'));
 
 // POST: create event
@@ -128,7 +126,7 @@ app.get('/user/:id', async (req, res) => {
 });
 
 // PUT add player to event based on eventID and player/userID
-app.put('/user/event/:event', async (req, res) => {
+app.put('/user/event/', async (req, res) => {
   const eventID = req.body.event;
   const userID = req.body.user;
 
@@ -137,6 +135,8 @@ app.put('/user/event/:event', async (req, res) => {
       return response._doc.players;
     })
     .catch((err) => console.log('evento error'));
+
+  const playerDetails = await User.findById(userID);
 
   // adding new Player to Event
   let playerExist = false;
@@ -163,7 +163,7 @@ app.put('/user/event/:event', async (req, res) => {
       }
     );
   } else {
-    eventPlayers.push({ playerID: userID });
+    eventPlayers.push({ playerID: userID, username: playerDetails.username });
 
     Event.findByIdAndUpdate(
       { _id: eventID },
@@ -176,4 +176,29 @@ app.put('/user/event/:event', async (req, res) => {
       }
     );
   }
+});
+
+// PUT change game status
+app.put('/user/event/status/', async (req, res) => {
+  const eventID = req.body.event;
+  const status = req.body.status;
+
+  await Event.findByIdAndUpdate({ _id: eventID }, { status: status })
+    .then((response) => {
+      res.json({ message: 'success', newStatus: status });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+// DELETE event
+app.delete('/user/event/:id', async (req, res) => {
+  await Event.findByIdAndDelete(req.params.id, (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({ status: 'success' });
+    }
+  });
 });

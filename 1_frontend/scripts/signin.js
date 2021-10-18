@@ -16,9 +16,6 @@ const loginUser = (e) => {
     password: e.target.userPassword.value,
   };
 
-  console.log(LOGIN_USER_URI);
-  console.log(user);
-
   fetch(LOGIN_USER_URI, {
     method: 'POST',
     headers: {

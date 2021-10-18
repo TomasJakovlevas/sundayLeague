@@ -1,15 +1,16 @@
 SUNDAY LEAGUE
 
 ProfilePage {
-    Atvaizduoju artejancius eventus, kuriuose dalyvauju
-    Evento stasusas keiciasi : ON GOING; COMPLETED; CANCELED
+Atvaizduoju artejancius eventus, kuriuose dalyvauju
+Evento stasusas keiciasi : ON GOING; COMPLETED; CANCELED
 
     Galima matyti savo aktyvuma, completed eventu skaiciu, sukurtu eventu skaiciu
     Gal rewardus su mileston'ais butu visai nieko
+
 }
 
 myGamesPage: {
-    Didelis mygtukas sukurti eventui
+Didelis mygtukas sukurti eventui
 
     Listas eventu kuriuos sukuriau, kad galeciau juos valdyti ir stebeti
 
@@ -23,11 +24,12 @@ myGamesPage: {
         otherDetails:
         status:
     }
+
 }
 
-09-21 
-    reikia iki galo sutvarkyti sukurtu zaidimu atvaizdavima.
-    icona kuris nurodytu kategorija, ir paspaudus ant evento atsirustu daugiau info apie ji su iframu. +
+09-21
+reikia iki galo sutvarkyti sukurtu zaidimu atvaizdavima.
+icona kuris nurodytu kategorija, ir paspaudus ant evento atsirustu daugiau info apie ji su iframu. +
 
     atvaizduoti visus eventus su savo kategorijom +
 
@@ -36,11 +38,32 @@ myGamesPage: {
     sutvarkyt locationus -
 
 10-02
-    reik taip pat pataisyti mongodb Schema, turi saugoti evente ne skaiciu zaideju o array +
+reik taip pat pataisyti mongodb Schema, turi saugoti evente ne skaiciu zaideju o array +
 
     sukurti logika paspaudus dalyvausiu ir cancelinant +
 
     -- put route sutvarkyti iki galo updatinima, findbyidandupdate sugalvoti kaip perrasyti sena arreju i nauja +
 
 10-09
-    eventu puslapyje reikia onClicko atidaryti daugiau info apie eventa, jame taip pat turi buti join button ir cancel button
+eventu puslapyje reikia onClicko atidaryti daugiau info apie eventa, jame taip pat turi buti join button ir cancel button +/-
+
+10-12
+FIX:
+
+    1. showEventDetails() in events on line 98. atvaizduoti reikia sarasa zaideju, kolkas is backo gaunu tik zaideju id. Gal iseis greit sutvarkyt? +
+
+    2. myGames.js on line 52, renderinu tik futbolo stadionus pagal location. reik padaryt patikrinima is kokio stadiono masyvo imt locationa +
+
+10-16
+myGames.js du mygtukai, complete ir cancel. Kiekvienas turi updatinti evento statusa. Means du arba vienas routas dar reikalingas? +
+
+10-17
+zaidimu kortelese yra playeriu listas. Reikia sutvarkyti, kad priklausomai nuo reikiamu zaideju skaiciaus, kiti stotu i eile +
+
+FIX:
+
+    1. myGames atvaizduoti statusa on real time +
+    2. profilyje, padaryti simple log out +
+    3. jei jau localhoste jau turiu useri uzejus i pradini psl, reroutintu mane i profilio psl +
+    4. myGames sukurt buttona, istrinti eventa +
+    5. sugalvoti kaip uzpildyti profilio psl, updatint varda ir pan?

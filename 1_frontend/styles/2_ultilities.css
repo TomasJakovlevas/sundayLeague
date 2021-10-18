@@ -8,6 +8,11 @@
   display: none;
 }
 
+/* Colors */
+:root {
+  --main-color: rgb(68, 58, 128);
+}
+
 /* Buttons */
 
 .btn {
@@ -17,11 +22,12 @@
   font-weight: 700;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .okBtn {
   background-color: lightgreen;
-  width: 90%;
+  width: 100%;
   text-align: center;
 }
 

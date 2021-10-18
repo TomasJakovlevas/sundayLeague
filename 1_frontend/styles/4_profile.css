@@ -21,58 +21,24 @@
   text-align: center;
 }
 
-.profileEvents {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.eventContainer {
-  margin-bottom: 10px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid lightgray;
-}
-
-.eventInfo {
-  display: flex;
-  flex-wrap: wrap;
-
-  padding: 20px;
-}
-.eventMap {
-  height: 100px;
-  width: 100px;
-  background-color: green;
-  margin-right: 15px;
-}
-
-.eventDetails {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.eventDetails h3 {
-  margin-bottom: 5px;
-}
-
-.eventStauts h4 {
-  background-color: red;
-  padding: 5px 0;
-  margin: 0 20px;
-  color: white;
-}
-
 .profileStatus {
   padding: 20px;
 }
 
-.completed {
+.profileStatus__actionButtons {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
   flex-direction: column;
 }
 
-.completed span {
-  font-size: 20px;
+.profileStatus__actionButtons button {
+  margin: 10px 0;
+  background-color: var(--main-color);
+  color: white;
+}
+
+@media screen and (min-width: 768px) {
+  .profileSection {
+    background-color: red;
+  }
 }
