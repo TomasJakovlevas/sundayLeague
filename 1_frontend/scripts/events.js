@@ -11,6 +11,7 @@ const eventContainerElement = document.querySelector('.event__container');
 const eventMoreInfoContainerElement = document.querySelector(
   '.eventMoreInfoContainer'
 );
+const bodyElement = document.querySelector('body');
 
 // Local Variables
 let allEvents;
@@ -60,9 +61,9 @@ const renderAllEvents = () => {
         </div>
       <div class="eventStauts ${item.status}">
         <h4>${item.status}</h4>
-        <button data-id=${item._id} class='joinBtn'>${
-            playerExist.length ? 'CANCEL' : 'JOIN'
-          }</button>
+        <button data-id=${item._id} class='btn joinBtn ${
+            playerExist.length ? 'cancelButton' : 'joinButton'
+          }'>${playerExist.length ? 'CANCEL' : 'JOIN'}</button>
       </div>
         `;
         });
@@ -114,6 +115,8 @@ const showEventDetails = (e) => {
   const itemIndex = e.target ? e.target.dataset.index : e;
   const event = allEvents[itemIndex];
   eventMoreInfoContainerElement.classList.remove('hidden');
+  eventContainerElement.style.display = 'none';
+  bodyElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 
   // Setting location
   let location;
@@ -134,38 +137,49 @@ const showEventDetails = (e) => {
   <h2>${event.category}: ${location.district}</h2>
 <h4>${event.date} || ${event.time}</h4>
 <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5487.992559802447!2d25.293972326518986!3d54.66709635641924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd944688f7acd3%3A0x8460aad5fe86f78!2sLFF%20stadionas!5e0!3m2!1slt!2slt!4v1630681268238!5m2!1slt!2slt" width="100%" height="200px" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
-<span>Kaina: ${event.price}€</span>
-<span>${event.status}</span>
-<p id='playerCounter'>Zaideju: ${event.players.length}/${event.numberOfPlayers}</p>
+<span>Price: ${event.price}€</span>
+<span class='eventStatus'>${event.status}</span>
+<p id='playerCounter'>Players: ${event.players.length}/${event.numberOfPlayers}</p>
 <ol id="playersList">
 </ol>
 
-<p>Eileje</p>
+<p>Queue</p>
 <ol id="playerQueue">
 </ol>
 
 <div class="eventDetailsButtons">
-<button data-id=${event._id} class='joinBtns'></button>
+<button data-id=${event._id} class='btn joinBtns'></button>
 </div>
-<button id="closeEvent">x</button>
+<button class="btn closeEvent">&#10006;</button>
+
 
 </div>
   `;
 
   // DOMelements
-  const closeEventButton = document.getElementById('closeEvent');
   const playerListElement = document.getElementById('playersList');
   const playerQueueElement = document.getElementById('playerQueue');
   const joinBtns = document.querySelector('.joinBtns');
+  const closeEventButton = document.querySelector('.closeEvent');
 
+  // Logic
   const playerExist = event.players.find(
     (player) => player.playerID === localStorage.getItem('user')
   );
-  joinBtns.innerText = playerExist ? 'Cancel' : 'Join';
-  joinBtns.addEventListener('click', (e) => joinEventAndUpdate(e));
+
+  // joinBtns.innerText = playerExist ? 'Cancel' : 'JOIN';
+  if (playerExist) {
+    joinBtns.classList.add('cancelButton');
+    joinBtns.innerText = 'CANCEL';
+  } else {
+    joinBtns.classList.add('joinButton');
+    joinBtns.innerText = 'JOIN';
+  }
 
   const closeEvent = () => {
     eventMoreInfoContainerElement.classList.add('hidden');
+    eventContainerElement.style.display = '';
+    bodyElement.style.backgroundColor = 'white';
   };
 
   // Functions
@@ -190,7 +204,7 @@ const showEventDetails = (e) => {
     }
   };
 
-  const joinEventAndUpdate = async (e) => {
+  const joinEventAndUpdate = (e) => {
     joinEvent(e);
     setTimeout(() => {
       showEventDetails(itemIndex);
@@ -198,6 +212,7 @@ const showEventDetails = (e) => {
   };
 
   // Events
+  joinBtns.addEventListener('click', (e) => joinEventAndUpdate(e));
   closeEventButton.addEventListener('click', closeEvent);
   renderList();
 };
