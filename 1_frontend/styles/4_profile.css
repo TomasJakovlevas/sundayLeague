@@ -2,6 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .profilePic {
@@ -29,6 +33,9 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  width: 80%;
+  max-width: 1200px;
 }
 
 .profileStatus__actionButtons button {
@@ -39,6 +46,33 @@
 
 @media screen and (min-width: 768px) {
   .profileSection {
-    background-color: red;
+    /* background-color: red; */
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  .profileInfo {
+    text-align: left;
+    /* background-color: green; */
+    width: 20%;
+    padding: 35px;
+  }
+
+  .profileStatus {
+    padding: 0;
+  }
+
+  .profileStatus__actionButtons {
+    /* background-color: green; */
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .profileStatus__actionButtons button {
+    width: 20%;
+    margin-left: 20px;
   }
 }

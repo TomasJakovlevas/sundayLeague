@@ -47,6 +47,11 @@ const eventSchema = new Schema({
     type: String,
     default: 'ongoing',
   },
+
+  comment: {
+    type: String,
+    required: false,
+  },
 });
 
 const Event = mongoose.model('event', eventSchema);

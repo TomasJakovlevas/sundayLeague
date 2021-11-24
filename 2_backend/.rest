@@ -1,6 +1,9 @@
 ### get all users
 GET http://localhost:8080/user/611fb60246c79728ec2491f7
 
+### get all events
+GET http://localhost:8080/events/
+
 ### post event
 POST  http://localhost:8080/user/event/
 Content-Type: application/json

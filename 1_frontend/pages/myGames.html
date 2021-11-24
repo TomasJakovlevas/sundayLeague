@@ -14,12 +14,12 @@
       referrerpolicy="no-referrer"
     />
     <!-- components -->
-    <script defer src="../components/nav.js"></script>
+    <script defer src="../components/nav.js" type="module"></script>
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="../styles/1_resets.css" />
     <link rel="stylesheet" href="../styles/2_ultilities.css" />
     <link rel="stylesheet" href="../styles/3_header.css" />
-    <link rel="stylesheet" href="../styles/4_myGames.css">
+    <link rel="stylesheet" href="../styles/4_myGames.css" />
     <!-- CUSTOM JS -->
     <script defer src="../scripts/myGames.js" type="module"></script>
   </head>
@@ -30,56 +30,70 @@
     <main>
       <section class="createGame">
         <button class="btn create-btn">CREATE GAME</button>
-
       </section>
 
       <section class="createdGames"></section>
 
-      <div class="createGameFormContainer hidden">
+      <section class="createGameFormContainer hidden">
+        <h2>CREATE GAME</h2>
+
         <form>
+          <div class="inputWrapper">
+            <label for="gameCategory">Select Category</label>
+            <select id="gameCategory" required>
+              <option value="" selected disabled hidden>Choose here</option>
+              <option value="football">Futbolas</option>
+              <option value="basketball">Krepšinis</option>
+              <option value="volleyball">Tinklinis</option>
+            </select>
+          </div>
 
-          <h2>CREATE GAME</h2>
+          <div class="inputWrapper">
+            <label for="gameLocation">Select location</label>
+            <select id="gameLocation">
+              <option value="" selected disabled hidden>Choose here</option>
+            </select>
+          </div>
 
-          <label for="gameCategory">Select Category</label>
-          <select id="gameCategory" required>
-            <option value="" selected disabled hidden>Choose here</option>
-            <option value="football">Futbolas</option>
-            <option value="basketball">Krepšinis</option>
-            <option value="voleyball">Tinklinis</option>
-          </select>
-          
-          <label for="gameLocation">Select location</label>
-          <select id="gameLocation">
-            <option value="" selected disabled hidden>Choose here</option>
-          </select>
+          <div class="inputWrapper">
+            <label for="diffLocation">Different Location</label>
+            <textarea id="diffLocation" cols="30" rows="2"></textarea>
+          </div>
 
-          <label for="diffLocation">Different Location</label>
-          <textarea id="diffLocation" cols="30" rows="2"></textarea>
+          <div class="inputWrapper">
+            <label for="gameDate">Date</label>
+            <input type="date" id="gameDate" required />
+          </div>
 
-          <label for="gameDate">Date</label>
-          <input type="date" id="gameDate" required>
-          <label for="gameTime">Time</label>
-          <input type="time" id="gameTime" required>
-          <label for="gamePrice">Price</label>
-          <input type="text" id="gamePrice" required>
+          <div class="inputWrapper">
+            <label for="gameTime">Time</label>
+            <input type="time" id="gameTime" required />
+          </div>
 
-          <label for="gamePlayers">People</label>
-          <input type="number" id="gamePlayers" required>
+          <div class="inputWrapper">
+            <label for="gamePrice">Price</label>
+            <input type="text" id="gamePrice" required />
+          </div>
 
+          <div class="inputWrapper">
+            <label for="gamePlayers">People</label>
+            <input type="number" id="gamePlayers" required />
+          </div>
 
+          <div class="inputWrapper">
+            <label for="gameComment">Additional info</label>
+            <textarea id="gameComment" cols="30" rows="5"></textarea>
+          </div>
 
-          <input type="submit" value="Submit">
-          <button id="cancelForm">Cancel</button>
-
+          <div class="buttonWrapper">
+            <input type="submit" value="Submit" />
+            <button id="cancelForm">Cancel</button>
+          </div>
         </form>
-      </div>
+      </section>
 
-      <div class="createdGameMoreInfoContainer hidden">     
-      </div>
-
-    
+      <div class="createdGameMoreInfoContainer hidden"></div>
     </main>
     <footer></footer>
-  </body>
   </body>
 </html>

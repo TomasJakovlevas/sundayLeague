@@ -60,6 +60,23 @@
   padding: 5px 0;
   margin: 0 20px;
   text-align: center;
+  font-size: 14px;
+}
+
+.ongoing {
+  /* border: 2px solid red !important; */
+}
+
+.canceled {
+  background-color: red;
+  color: white !important;
+  border: none !important;
+}
+
+.completed {
+  background-color: rgb(24, 173, 24);
+  color: white !important;
+  border: none !important;
 }
 
 .eventStauts button {
@@ -87,6 +104,12 @@
 .eventMoreInfo_details h2,
 .eventMoreInfo_details h4 {
   text-align: center;
+}
+
+.eventPriceAndStatus {
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .eventDetailsButtons {
@@ -125,9 +148,6 @@
   color: white;
 }
 
-.eventStatus {
-}
-
 p {
   padding: 10px 0;
   border-bottom: 1px solid black;
@@ -148,6 +168,10 @@ p {
   background-color: white;
 }
 
+#creatorComment {
+  border: none;
+}
+
 @media screen and (min-width: 768px) {
   .event__container {
     width: 80%;
@@ -155,11 +179,34 @@ p {
     margin: 0 auto;
 
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
 
   .event {
-    width: 50%;
+    width: 48%;
+    margin: 10px 0;
+    padding-bottom: 10px;
+  }
+
+  .event:hover {
+    box-shadow: rgba(46, 98, 240, 0.4) -5px 5px,
+      rgba(46, 98, 170, 0.3) -10px 10px, rgba(46, 98, 170, 0.2) -15px 15px,
+      rgba(46, 98, 170, 0.1) -20px 20px, rgba(46, 98, 170, 0.05) -25px 25px;
+  }
+
+  .eventInfo {
+    padding: 20px 10px;
+  }
+
+  .eventStauts h4 {
+    width: 100%;
+    margin: 0 0 0 10px;
+  }
+
+  .eventStauts button {
+    width: 100%;
+    margin: 10px 0 10px 10px;
   }
 
   .eventMoreInfoContainer {

@@ -66,4 +66,36 @@ FIX:
     2. profilyje, padaryti simple log out +
     3. jei jau localhoste jau turiu useri uzejus i pradini psl, reroutintu mane i profilio psl +
     4. myGames sukurt buttona, istrinti eventa +
-    5. sugalvoti kaip uzpildyti profilio psl, updatint varda ir pan?
+    5. sugalvoti kaip uzpildyti profilio psl, updatint varda ir pan +/-
+
+11-09
+long time no see. Back to work
+
+myGames puslapyje sutvarkyti
+
+1.  stiliu su responsive +
+2.  modalu atidaryma (pvz kaip events) +
+
+11-19
+well well well. guess whos back
+
+createGame modala padaryti responsive ++
+myGames, events psl sutvarkyti modalo stiliu ++
+deletinant game turi paprasyti patvirtinimo ++
+atvaizduoti kurejo komentara ++
+atvaizduoti evento kureja (tik events modale) ++
+events kortleje atvaizduoti statusa su stilium, ongoing - teminis, canceled - raudonas, completed - zalias ++
+
+sutvarkyti profile psl stiliu ++
+sukurti funkcija kur galima isikelti savo nuotrauka (bent jau linka kol kas) arba pasirinki is esamu;
+leisti pasikeisti savo nickname
+
+kai prisijunges reroutinti i acc page kai bando pasiekt pagrindini ar signupa
+
+pasidomet ir patobilint get all events routa
+
+players rating sistema
+
+atidarius koki modala ir paspaudus profile, sucrashinda domas
+
+paskui sutvarkyti blura

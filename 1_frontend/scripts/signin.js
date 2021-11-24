@@ -7,6 +7,14 @@ const loginForm = document.querySelector('.loginForm form');
 const formMessage = document.querySelector('#formMessage');
 
 // Functions
+const checkForUser = () => {
+  const user = localStorage.getItem('user');
+
+  if (user) {
+    location.href = 'http://127.0.0.1:5500/1_frontend/pages/mygames.html';
+  }
+};
+
 const loginUser = (e) => {
   e.preventDefault();
   formMessage.innerText = '';
@@ -31,10 +39,11 @@ const loginUser = (e) => {
       } else if (data.status === 'success') {
         localStorage.setItem('user', data.userId);
 
-        location.href = 'http://127.0.0.1:5500/1_frontend/pages/profile.html';
+        location.href = 'http://127.0.0.1:5500/1_frontend/pages/mygames.html';
       }
     });
 };
 
 // Events
+document.addEventListener('DOMContentLoaded', checkForUser);
 loginForm.addEventListener('submit', loginUser);

@@ -21,6 +21,7 @@ const createdGamesContainer = document.querySelector('.createdGames');
 const createdGameMoreInfoContainer = document.querySelector(
   '.createdGameMoreInfoContainer'
 );
+const bodyElement = document.querySelector('body');
 
 // Local Variables
 let events;
@@ -61,12 +62,12 @@ const renderEvents = () => {
             case 'basketball':
               location = basketballLot[item.location];
               break;
-            case 'voleyball':
+            case 'volleyball':
               location = volleyballCourt[item.location];
               break;
           }
 
-          locationTitle.innerText = location.name;
+          locationTitle.innerText = location ? location.name : item.location;
 
           locationTitle.dataset.index = result.indexOf(item);
 
@@ -111,6 +112,9 @@ const renderEvents = () => {
 
 const onCreateGame = () => {
   createGameFormContainer.classList.remove('hidden');
+  createdGamesContainer.style.display = 'none';
+  createGameBtn.style.display = 'none';
+  bodyElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 };
 
 // render locations based on category
@@ -130,7 +134,7 @@ const handleCategoryChange = (e) => {
         return (total += `<option value="${current._id}">${current.name}</option>`);
       }, '');
       break;
-    case 'voleyball':
+    case 'volleyball':
       gameLocation.innerHTML += volleyballCourt.reduce((total, current) => {
         return (total += `<option value="${current._id}">${current.name}</option>`);
       }, '');
@@ -157,6 +161,7 @@ const onCreateGameSubmit = (e) => {
     category: e.target.gameCategory.value,
     price: +e.target.gamePrice.value,
     numberOfPlayers: +e.target.gamePlayers.value,
+    comment: e.target.gameComment.value,
   };
 
   fetch('http://localhost:8080/user/event/', {
@@ -178,12 +183,18 @@ const onCreateGameSubmit = (e) => {
 
 const handleCanceledForm = () => {
   createGameFormContainer.classList.add('hidden');
+  createdGamesContainer.style.display = 'flex';
+  createGameBtn.style.display = 'flex';
+  bodyElement.style.backgroundColor = 'white';
 };
 
 const showEventDetails = (e) => {
   const itemIndex = e.target ? e.target.dataset.index : e;
   const event = events[itemIndex];
   createdGameMoreInfoContainer.classList.remove('hidden');
+  createdGamesContainer.style.display = 'none';
+  createGameBtn.style.display = 'none';
+  bodyElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 
   // Setting location
   let location;
@@ -194,45 +205,63 @@ const showEventDetails = (e) => {
     case 'basketball':
       location = basketballLot[event.location];
       break;
-    case 'voleyball':
+    case 'volleyball':
       location = volleyballCourt[event.location];
       break;
   }
 
   createdGameMoreInfoContainer.innerHTML = `
   <div class="createdGameDetails">
-  <h2>${event.category}: ${location.district}</h2>
+  <h2>${event.category}: ${location ? location.district : event.location}</h2>
 <h4>${event.date} || ${event.time}</h4>
-<div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5487.992559802447!2d25.293972326518986!3d54.66709635641924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd944688f7acd3%3A0x8460aad5fe86f78!2sLFF%20stadionas!5e0!3m2!1slt!2slt!4v1630681268238!5m2!1slt!2slt" width="100%" height="200px" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
-<span>Kaina: ${event.price}€</span>
+<div>${location ? location.location : `<div class='imgContainer'></div>`}</div>
+<div class='eventPriceAndStatus'><span>Price: ${event.price}€</span>
 <span id='eventStatus'>${event.status}</span>
+</div>
+
 <div class="eventDetailsButtons">
  <button class='completeGameBtn'>Complete Game</button>
  <button class='cancelGameBtn'>Cancel Game</button>
- <button class='deleteGameBtn' data-index=${itemIndex}>Delete Game</button>
+ <button class='deleteGameBtn'>Delete Game</button>
 
 </div>
-<p id='playerCounter'>Zaideju: ${event.players.length}/${event.numberOfPlayers}</p>
+<div class='delete-confirmation-container hidden'>
+  <p class='delete-confirmation-p'>Are you sure want to delete this event?</p>
+  <div>
+    <button id='confirmDelete' class='btn' data-index=${itemIndex}>YES</button>
+    <button id='cancelDelete' class='btn'>CANCEL</button>
+  </div>
+</div>
+<p id='playerCounter'>Players: ${event.players.length}/${
+    event.numberOfPlayers
+  }</p>
 <ol id="playersList">
 </ol>
 
-<p>Eileje</p>
+<p>Queue</p>
 <ol id="playerQueue">
 </ol>
 
-<button id="closeEvent">x</button>
+<p id=' '>Comment: ${event.comment}</p>
+
+<button class="btn closeEvent">x</button>
 
 </div>
   `;
 
   // DOMelements
   const eventStatusElement = document.getElementById('eventStatus');
-  const closeEventButton = document.getElementById('closeEvent');
+  const closeEventButton = document.querySelector('.closeEvent');
   const playerListElement = document.getElementById('playersList');
   const playerQueueElement = document.getElementById('playerQueue');
   const completeGameBtn = document.querySelector('.completeGameBtn');
   const cancelGameBtn = document.querySelector('.cancelGameBtn');
   const deleteGameBtn = document.querySelector('.deleteGameBtn');
+  const deleteConfirmationElement = document.querySelector(
+    '.delete-confirmation-container'
+  );
+  const confirmBtn = document.querySelector('#confirmDelete');
+  const cancelDeleteBtn = document.querySelector('#cancelDelete');
 
   for (let x = 0; x < event.players.length; x++) {
     if (x < event.numberOfPlayers) {
@@ -274,9 +303,15 @@ const showEventDetails = (e) => {
     }, 300);
   };
 
+  const askBeforeDelete = () =>
+    deleteConfirmationElement.classList.remove('hidden');
+
+  const closeAskBeforeDelete = () => {
+    deleteConfirmationElement.classList.add('hidden');
+  };
+
   const deleteGame = (e) => {
     const currentItemIndex = e.target.dataset.index;
-
     let itemToDelete = events[currentItemIndex];
 
     fetch(`http://localhost:8080/user/event/${itemToDelete._id}`, {
@@ -285,7 +320,7 @@ const showEventDetails = (e) => {
       .then((response) => response.json())
       .then((result) => {
         if (result.status === 'success') {
-          createdGameMoreInfoContainer.classList.add('hidden');
+          closeEvent();
           renderEvents();
         }
       });
@@ -295,11 +330,16 @@ const showEventDetails = (e) => {
   closeEventButton.addEventListener('click', closeEvent);
   completeGameBtn.addEventListener('click', () => completeGame('completed'));
   cancelGameBtn.addEventListener('click', () => completeGame('canceled'));
-  deleteGameBtn.addEventListener('click', (e) => deleteGame(e));
+  deleteGameBtn.addEventListener('click', (e) => askBeforeDelete(e));
+  confirmBtn.addEventListener('click', (e) => deleteGame(e));
+  cancelDeleteBtn.addEventListener('click', () => closeAskBeforeDelete());
 };
 
 const closeEvent = () => {
   createdGameMoreInfoContainer.classList.add('hidden');
+  createdGamesContainer.style.display = '';
+  createGameBtn.style.display = 'flex';
+  bodyElement.style.backgroundColor = 'white';
 };
 
 // Events

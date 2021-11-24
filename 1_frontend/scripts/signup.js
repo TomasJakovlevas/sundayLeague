@@ -10,6 +10,14 @@ const formMessage = document.querySelector('#formMessage');
 let user;
 
 // Functions
+const checkForUser = () => {
+  const user = localStorage.getItem('user');
+
+  if (user) {
+    location.href = 'http://127.0.0.1:5500/1_frontend/pages/mygames.html';
+  }
+};
+
 const createUser = (e) => {
   e.preventDefault();
   formMessage.innerText = '';
@@ -49,4 +57,5 @@ const createUser = (e) => {
 };
 
 // Events
+document.addEventListener('DOMContentLoaded', checkForUser);
 signupForm.addEventListener('submit', createUser);

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import colors from 'colors';
@@ -23,7 +23,7 @@ mongoose
     useUnifiedTopology: true,
     useFindAndModify: false,
   })
-  .then((response) => {
+  .then(() => {
     console.log(`Connected to MongoDB`.blue.underline.bold);
     // Starting server
     app.listen(PORT, () => {
@@ -59,9 +59,35 @@ app.get('/user/events/:id', async (req, res) => {
 
 // GET: all events
 app.get('/events/', async (req, res) => {
+  let events;
+  let eventsCreators = [];
+  let usersInfo = [];
+  let eventsWithCreators = [];
+
   await Event.find({}).then((response) => {
-    res.json(response);
+    events = response;
+    response.forEach((item) => {
+      eventsCreators.push(item.creatorID);
+    });
   });
+
+  const users = await User.find({}).then((response) => {
+    return response;
+  });
+
+  eventsCreators.map((creatorID) => {
+    users.forEach((user) => {
+      if (user._id.toString() == creatorID.toString()) {
+        usersInfo.push(user.username);
+      }
+    });
+  });
+
+  for (let x in events) {
+    eventsWithCreators.push({ ...events[x]._doc, creatorInfo: usersInfo[x] });
+  }
+
+  res.json(eventsWithCreators);
 });
 
 // POST: register new user
