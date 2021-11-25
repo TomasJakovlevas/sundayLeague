@@ -90,12 +90,12 @@ sutvarkyti profile psl stiliu ++
 sukurti funkcija kur galima isikelti savo nuotrauka (bent jau linka kol kas) arba pasirinki is esamu;
 leisti pasikeisti savo nickname
 
-kai prisijunges reroutinti i acc page kai bando pasiekt pagrindini ar signupa
+kai prisijunges reroutinti i acc page kai bando pasiekt pagrindini ar signupa ++
 
 pasidomet ir patobilint get all events routa
 
 players rating sistema
 
-atidarius koki modala ir paspaudus profile, sucrashinda domas
+atidarius koki modala ir paspaudus profile, sucrashinda domas ++
 
-paskui sutvarkyti blura
+paskui sutvarkyti blura ++

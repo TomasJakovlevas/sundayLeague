@@ -91,34 +91,33 @@ const renderNav = () => {
 
   navElement.append(logo, ulTab);
 
-  // Functions
-  const openProfileModal = () => {
-    const modal = document.querySelector('.profileModal');
-    const mainElement = document.querySelector('main');
-
-    if (modal.classList.contains('hidden')) {
-      modal.classList.remove('hidden');
-      mainElement.classList.add('blur');
-
-      let div = document.createElement('div');
-      div.className += 'overlay';
-      document.body.appendChild(div);
-      document.body.classList.add('disableScroll');
-    } else {
-      modal.classList.add('hidden');
-      mainElement.classList.remove('blur');
-
-      let div = document.querySelector('.overlay');
-      document.body.removeChild(div);
-      document.body.classList.remove('disableScroll');
-    }
-  };
-
   // Events
   a4.addEventListener('click', openProfileModal);
   profileBtn.addEventListener('click', openProfileModal);
 
   getProfileInfo();
+};
+
+const openProfileModal = () => {
+  const modal = document.querySelector('.profileModal');
+  const mainElement = document.querySelector('main');
+
+  if (modal.classList.contains('hidden')) {
+    modal.classList.remove('hidden');
+    mainElement.classList.add('blur');
+
+    let div = document.createElement('div');
+    div.className += 'overlay';
+    document.body.appendChild(div);
+    document.body.classList.add('disableScroll');
+  } else {
+    modal.classList.add('hidden');
+    mainElement.classList.remove('blur');
+
+    let div = document.querySelector('.overlay');
+    document.body.removeChild(div);
+    document.body.classList.remove('disableScroll');
+  }
 };
 
 const getProfileInfo = () => {
@@ -154,15 +153,48 @@ const getProfileInfo = () => {
         `;
 
         // DOM elements
+        const editBtn = document.querySelector('.editProfile');
         const logoutBtn = document.querySelector('.logout');
+
+        // events
+        editBtn.addEventListener('click', handleEditBtn);
         logoutBtn.addEventListener('click', logoutUser);
       });
+
+    const handleEditBtn = () => {
+      openProfileModal();
+      openEditProfile();
+    };
 
     const logoutUser = () => {
       localStorage.removeItem('user');
       window.location.href = '../index.html';
     };
   }
+};
+
+const openEditProfile = () => {
+  const modal = document.createElement('div');
+  modal.classList.add('editProfileContainer');
+
+  modal.innerHTML = `
+    <h3>Laba diena su vistiena</h3>
+    <button class="btn closeEvent">&#10006;</button>
+  `;
+
+  document.querySelector('main').appendChild(modal);
+  document.body.classList.add('disableScroll');
+
+  const closeBtn = document.querySelector('.closeEvent');
+  closeBtn.addEventListener('click', closeEditProfile);
+};
+
+const closeEditProfile = () => {
+  const modal = document.querySelector('.editProfileContainer');
+  const main = document.querySelector('main');
+
+  main.removeChild(modal);
+  document.body.classList.remove('disableScroll');
 };
 
 // Events

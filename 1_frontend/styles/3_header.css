@@ -39,6 +39,32 @@ header nav li span {
   cursor: pointer;
 }
 
+.editProfileContainer {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: calc(100% - 66px);
+
+  background-color: red;
+  z-index: 1;
+}
+
+.editProfileContainer .closeEvent {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  margin: 10px;
+}
+
 /* TABLET */
 @media screen and (min-width: 768px) {
   header {

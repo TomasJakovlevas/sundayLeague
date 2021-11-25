@@ -78,7 +78,7 @@ app.get('/events/', async (req, res) => {
   eventsCreators.map((creatorID) => {
     users.forEach((user) => {
       if (user._id.toString() == creatorID.toString()) {
-        usersInfo.push(user.username);
+        usersInfo.push({ username: user.username, email: user.email });
       }
     });
   });

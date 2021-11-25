@@ -53,7 +53,7 @@ const renderAllEvents = () => {
               <div>
                 <h3 class='locationTitle' data-index=${allEvents.indexOf(
                   item
-                )}>${location.name}</h3>
+                )}>${location ? location.name : item.location}</h3>
                 <span>${item.date}</span>
               </div>
               <p>Players: ${item.players.length}/${item.numberOfPlayers}</p>
@@ -134,10 +134,11 @@ const showEventDetails = (e) => {
 
   eventMoreInfoContainerElement.innerHTML = `
   <div class="eventMoreInfo_details">
-  <h2>${event.category}: ${location.district}</h2>
+  <h2>${location ? location.district : event.location}</h2>
 <h4>${event.date} || ${event.time}</h4>
-<div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5487.992559802447!2d25.293972326518986!3d54.66709635641924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd944688f7acd3%3A0x8460aad5fe86f78!2sLFF%20stadionas!5e0!3m2!1slt!2slt!4v1630681268238!5m2!1slt!2slt" width="100%" height="200px" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div>
-<span>Organizer: ${event.creatorInfo}</span>
+<div>${location ? location.location : `<div class='imgContainer'></div>`}</div>
+
+<span class='organizerInfo'>Organizer: ${event.creatorInfo.username} </span>
 <div class='eventPriceAndStatus'>
 <span>Price: ${event.price}€</span>
 <span class='eventStatus' >${event.status}</span>
@@ -145,7 +146,9 @@ const showEventDetails = (e) => {
 
 </>
 
-<p id='playerCounter'>Players: ${event.players.length}/${event.numberOfPlayers}</p>
+<p id='playerCounter'>Players: ${event.players.length}/${
+    event.numberOfPlayers
+  }</p>
 <ol id="playersList">
 </ol>
 

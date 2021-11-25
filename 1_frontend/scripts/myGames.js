@@ -174,7 +174,8 @@ const onCreateGameSubmit = (e) => {
     .then((res) => res.json())
     .then((result) => {
       setTimeout(() => {
-        createGameFormContainer.classList.add('hidden');
+        // createGameFormContainer.classList.add('hidden');
+        handleCanceledForm();
         createGameForm.reset();
         renderEvents();
       }, 300);
@@ -212,8 +213,8 @@ const showEventDetails = (e) => {
 
   createdGameMoreInfoContainer.innerHTML = `
   <div class="createdGameDetails">
-  <h2>${event.category}: ${location ? location.district : event.location}</h2>
-<h4>${event.date} || ${event.time}</h4>
+  <h2>${location ? location.district : event.location}</h2>
+<h4 class='eventDateAndTime'>${event.date} || ${event.time}</h4>
 <div>${location ? location.location : `<div class='imgContainer'></div>`}</div>
 <div class='eventPriceAndStatus'><span>Price: ${event.price}€</span>
 <span id='eventStatus'>${event.status}</span>
