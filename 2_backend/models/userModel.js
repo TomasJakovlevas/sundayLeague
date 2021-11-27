@@ -17,9 +17,15 @@ const userSchema = new Schema({
     required: true,
   },
 
+  phoneNumber: {
+    type: Number,
+    required: true,
+  },
+
   profilePic: {
     type: String,
-    required: false,
+    default:
+      'https://images.unsplash.com/photo-1481174228429-b2c3f5680a7a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80',
   },
 });
 

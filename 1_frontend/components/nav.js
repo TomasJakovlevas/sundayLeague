@@ -1,9 +1,14 @@
 // Variables
 import { GET_USER } from '../modules/endpoints.js';
+import { profilePic } from '../modules/profilePic.js';
 
 // --DOM elements
 const navElement = document.querySelector('nav');
 const headerElement = document.querySelector('header');
+const body = document.querySelector('body');
+
+// user
+let user;
 
 // Functions
 const renderNav = () => {
@@ -127,17 +132,18 @@ const getProfileInfo = () => {
     fetch(GET_USER + userID)
       .then((response) => response.json())
       .then((result) => {
+        user = result;
         const modal = document.querySelector('.profileModal');
         modal.innerHTML = `
           <ul class='profileModal-content'>
           <div>
           <li>
-          <div class='profilePic'></div>
+          <div class='profilePic' style='background-image: url(${
+            user.profilePic
+          })'></div>
           </li>
             <li class='profileUsername'>
-            ${
-              result.username.charAt(0).toUpperCase() + result.username.slice(1)
-            }
+            ${user.username.charAt(0).toUpperCase() + user.username.slice(1)}
             </li>
           </div>
           
@@ -174,24 +180,136 @@ const getProfileInfo = () => {
 };
 
 const openEditProfile = () => {
+  // some logic
+  let profilePicture = user.profilePic;
+  let profileUsername = user.username;
+  let profilePhone = user.phoneNumber;
+
+  // body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+
   const modal = document.createElement('div');
   modal.classList.add('editProfileContainer');
 
   modal.innerHTML = `
-    <h3>Laba diena su vistiena</h3>
-    <button class="btn closeEvent">&#10006;</button>
+    <div>
+    <form id='editProfileForm'>
+    <div>
+     <div class='editProfileImgContainer'>
+        <div class='editProfileImg' style='background-image: url(${profilePicture})'></div>
+        <button class='btn changeProfilePic' type='button'>Change Profile Picture</button>
+        <div class='imgSelect hidden'>
+        </div>
+      </div>
+      <div class='editProfileSurnameContainer'>
+        <span class='profileSurname'>${profileUsername}</span>
+        <input id='inputSurname' class='hidden' type='text' value='${profileUsername}'/>
+        <button class='btn changeProfieSurname' type='button'>Edit surname</button>
+      </div>
+      <div class='editProfilePhoneContainer'>
+        <span class='profilePhone'>${profilePhone}</span>
+        <input id='inputPhone' class='hidden' type='number' value='${profilePhone}'/>
+      <button class='btn changeProfilePhone' type='button'>Edit phone</button>
+    </div>
+    </div>
+     
+
+    <button class='btn saveEditProfile'>SAVE</button>
+    </form>
+    <button class="btn closeModal">&#10006;</button>
+
+    </div>
   `;
 
+  // DOM
   document.querySelector('main').appendChild(modal);
   document.body.classList.add('disableScroll');
 
-  const closeBtn = document.querySelector('.closeEvent');
+  const closeBtn = document.querySelector('.closeModal');
+  const changePicBtn = document.querySelector('.changeProfilePic');
+  const imgSelect = document.querySelector('.imgSelect');
+  const changeProfieSurnameBtn = document.querySelector('.changeProfieSurname');
+  const changeProfilePhoneBtn = document.querySelector('.changeProfilePhone');
+  const editProfileForm = document.getElementById('editProfileForm');
+
+  // Functions
+  const changeProfilePic = () => {
+    if (imgSelect.classList.contains('hidden')) {
+      imgSelect.classList.remove('hidden');
+
+      if (imgSelect.firstElementChild) return;
+
+      profilePic.forEach((pic) => {
+        let div = document.createElement('div');
+        div.classList.add('selectProfileImg');
+        div.style = `background-image: url(${pic.url})`;
+        div.addEventListener('click', changeToMainPic);
+        div.dataset.pic = pic.url;
+        imgSelect.appendChild(div);
+      });
+    } else {
+      imgSelect.classList.add('hidden');
+    }
+  };
+
+  const changeToMainPic = (e) => {
+    document.querySelector(
+      '.editProfileImg'
+    ).style = `background-image: url(${e.target.dataset.pic})`;
+    profilePicture = e.target.dataset.pic;
+  };
+
+  const editSurname = (e) => {
+    const input = document.getElementById('inputSurname');
+    const label = document.querySelector('.profileSurname');
+
+    if (input.classList.contains('hidden')) {
+      input.classList.remove('hidden');
+      input.focus();
+      label.classList.add('hidden');
+    } else {
+      input.classList.add('hidden');
+      label.classList.remove('hidden');
+
+      profileUsername = input.value;
+      label.innerText = profileUsername;
+    }
+  };
+
+  const editPhone = (e) => {
+    const input = document.getElementById('inputPhone');
+    const label = document.querySelector('.profilePhone');
+
+    if (input.classList.contains('hidden')) {
+      input.classList.remove('hidden');
+      input.focus();
+      label.classList.add('hidden');
+    } else {
+      input.classList.add('hidden');
+      label.classList.remove('hidden');
+
+      profilePhone = input.value;
+      label.innerText = profilePhone;
+    }
+  };
+
+  const handleEditedForm = (e) => {
+    e.preventDefault();
+
+    console.log(profileUsername, profilePicture, profilePhone);
+  };
+
+  // Events
   closeBtn.addEventListener('click', closeEditProfile);
+  changePicBtn.addEventListener('click', changeProfilePic);
+  changeProfieSurnameBtn.addEventListener('click', editSurname);
+  changeProfilePhoneBtn.addEventListener('click', editPhone);
+  editProfileForm.addEventListener('submit', handleEditedForm);
 };
 
 const closeEditProfile = () => {
   const modal = document.querySelector('.editProfileContainer');
   const main = document.querySelector('main');
+  body.style.backgroundColor = 'white';
 
   main.removeChild(modal);
   document.body.classList.remove('disableScroll');

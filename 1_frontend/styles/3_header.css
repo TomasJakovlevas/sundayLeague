@@ -45,11 +45,10 @@ header nav li span {
   width: 100%;
   height: calc(100% - 66px);
 
-  background-color: red;
   z-index: 1;
 }
 
-.editProfileContainer .closeEvent {
+.editProfileContainer .closeModal {
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -173,7 +172,6 @@ header nav li span {
   height: 120px;
   border-radius: 50%;
   margin: 0 auto;
-  background-image: url('https://images.unsplash.com/photo-1481174228429-b2c3f5680a7a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=634&q=80');
   background-size: cover;
   background-position: center;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
@@ -184,6 +182,108 @@ header nav li span {
   text-align: center;
   margin: 20px 0;
   font-size: 20px;
+}
+
+/* EDIT PROFILE MODAL */
+
+.editProfileContainer > div {
+  height: 100%;
+}
+
+.editProfileContainer form {
+  background-color: white;
+  height: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.editProfileImgContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 2px solid grey;
+}
+
+.editProfileImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.editProfileImgContainer button,
+.editProfileSurnameContainer button,
+.editProfilePhoneContainer button {
+  padding: 10px;
+  margin: 0;
+  background-color: var(--main-color);
+  color: white;
+}
+
+.imgSelect {
+  width: 100%;
+  margin-top: 20px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.selectProfileImg {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+
+  background-size: cover;
+  background-position: center;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.editProfileSurnameContainer,
+.editProfilePhoneContainer {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 2px solid grey;
+}
+
+.saveEditProfile {
+  width: 90%;
+  margin: 0 auto;
+  background-color: rgb(68, 197, 68);
+  color: white;
+}
+
+#inputSurname,
+#inputPhone {
+  border: none;
+  font-size: 16px;
+  padding: 5px 0;
+  outline: none;
+}
+
+#inputSurname:focus,
+#inputPhone:focus {
+  border-bottom: 1px solid gray;
+}
+
+#inputPhone {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -222,8 +322,31 @@ header nav li span {
     z-index: 1000;
     top: 64px;
     left: 0px;
-    /* opacity: 0.5; /* in FireFox */
-    /* filter: alpha(opacity=50); in IE */
+  }
+
+  /* EDIT PROFILE MODAL */
+
+  .editProfileContainer {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 63px;
+    height: 100vh;
+  }
+
+  .editProfileContainer > div {
+    position: relative;
+    max-width: 1200px;
+    height: 80vh;
+    width: 100%;
+
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  .editProfileContainer form {
+    /*  */
   }
 }
 
@@ -233,6 +356,6 @@ header nav li span {
   overflow: hidden;
 }
 
-/* .blur {
-  filter: blur(2px);
-} */
+.hidden {
+  display: none;
+}
