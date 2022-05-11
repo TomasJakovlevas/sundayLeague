@@ -184,7 +184,7 @@ const onCreateGameSubmit = (e) => {
 
 const handleCanceledForm = () => {
   createGameFormContainer.classList.add('hidden');
-  createdGamesContainer.style.display = 'flex';
+  createdGamesContainer.style.display = '';
   createGameBtn.style.display = 'flex';
   bodyElement.style.backgroundColor = 'white';
 };

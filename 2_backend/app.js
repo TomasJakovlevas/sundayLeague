@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import colors from 'colors';
@@ -227,4 +227,31 @@ app.delete('/user/event/:id', async (req, res) => {
       res.json({ status: 'success' });
     }
   });
+});
+
+// PUT update user info
+app.put('/user/:id', async (req, res) => {
+  const userID = req.params.id;
+
+  if (
+    !req.body.profilePicture ||
+    !req.body.profileUsername ||
+    !req.body.profilePhone
+  )
+    return res.json({ message: 'error' });
+
+  await User.findByIdAndUpdate(
+    { _id: userID },
+    {
+      profilePic: req.body.profilePicture,
+      username: req.body.profileUsername,
+      phoneNumber: req.body.profilePhone,
+    }
+  )
+    .then(() => {
+      res.json({ message: 'success' });
+    })
+    .catch(() => {
+      res.json({ message: 'error' });
+    });
 });

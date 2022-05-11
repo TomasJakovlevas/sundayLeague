@@ -1,9 +1,18 @@
 main {
-  background-color: var(--main-color);
+  height: 100vh;
+
+  background-image: url('https://images.unsplash.com/photo-1599158150601-1417ebbaafdd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=736&q=80');
+  background-size: cover;
+  background-position: center;
 }
 
 .container {
   height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.wrapper {
+  background-color: rgba(68, 58, 128, 0.8);
 }
 
 .greetings {
@@ -59,7 +68,6 @@ main {
 }
 
 .noAcc {
-  height: 30vh;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;

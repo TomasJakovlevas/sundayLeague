@@ -41,3 +41,13 @@ Content-Type: application/json
 
 ### update event by adding player
 DELETE http://localhost:8080/user/event/616d4b89c12a1111584f635a
+
+### update user info
+PUT http://localhost:8080/user/613cb2e67ae1c305391d2095
+Content-Type: application/json
+
+{
+    "profilePicture": "profilio nuotraukos linkas",
+    "profileUsername": "Gintare",
+    "profilePhone": 112
+}

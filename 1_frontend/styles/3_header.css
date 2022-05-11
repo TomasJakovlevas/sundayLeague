@@ -202,7 +202,7 @@ header nav li span {
 
 .editProfileImgContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding-bottom: 20px;
@@ -227,6 +227,7 @@ header nav li span {
   margin: 0;
   background-color: var(--main-color);
   color: white;
+  width: 30%;
 }
 
 .imgSelect {
@@ -252,12 +253,18 @@ header nav li span {
 .editProfilePhoneContainer {
   padding: 20px 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 
   width: 90%;
   margin: 0 auto;
   border-bottom: 2px solid grey;
+}
+
+.editProfileInnerWrapper {
+  width: 30%;
+  display: flex;
+  justify-content: center;
 }
 
 .saveEditProfile {
@@ -273,6 +280,7 @@ header nav li span {
   font-size: 16px;
   padding: 5px 0;
   outline: none;
+  text-align: center;
 }
 
 #inputSurname:focus,
@@ -284,6 +292,15 @@ header nav li span {
   -webkit-appearance: none;
   -moz-appearance: textfield;
   margin: 0;
+}
+
+.errorMessage {
+  background-color: red;
+  text-align: center;
+  width: 50%;
+  margin: 20px auto;
+  border: none;
+  color: white;
 }
 
 @media screen and (min-width: 768px) {

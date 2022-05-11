@@ -1,6 +1,12 @@
 // Variables
-import { GET_USER } from '../modules/endpoints.js';
+import { GET_USER, UPDATE_USER } from '../modules/endpoints.js';
 import { profilePic } from '../modules/profilePic.js';
+
+//
+let params = new URLSearchParams(window.location.href);
+
+console.log(params.toString());
+//
 
 // --DOM elements
 const navElement = document.querySelector('nav');
@@ -114,6 +120,7 @@ const openProfileModal = () => {
     let div = document.createElement('div');
     div.className += 'overlay';
     document.body.appendChild(div);
+    div.addEventListener('click', openProfileModal);
     document.body.classList.add('disableScroll');
   } else {
     modal.classList.add('hidden');
@@ -195,20 +202,29 @@ const openEditProfile = () => {
     <form id='editProfileForm'>
     <div>
      <div class='editProfileImgContainer'>
-        <div class='editProfileImg' style='background-image: url(${profilePicture})'></div>
+     <div class='editProfileInnerWrapper'><div class='editProfileImg' style='background-image: url(${profilePicture})'></div>
+     </div>
+        
         <button class='btn changeProfilePic' type='button'>Change Profile Picture</button>
         <div class='imgSelect hidden'>
         </div>
       </div>
       <div class='editProfileSurnameContainer'>
+      <div class='editProfileInnerWrapper'>
         <span class='profileSurname'>${profileUsername}</span>
         <input id='inputSurname' class='hidden' type='text' value='${profileUsername}'/>
+        </div>
         <button class='btn changeProfieSurname' type='button'>Edit surname</button>
       </div>
       <div class='editProfilePhoneContainer'>
+      <div class='editProfileInnerWrapper'>
         <span class='profilePhone'>${profilePhone}</span>
         <input id='inputPhone' class='hidden' type='number' value='${profilePhone}'/>
+        </div>
       <button class='btn changeProfilePhone' type='button'>Edit phone</button>
+    </div>
+    <div class='errorMessage hidden'>
+    <p>Sorry, something went wrong</p>
     </div>
     </div>
      
@@ -232,9 +248,10 @@ const openEditProfile = () => {
   const editProfileForm = document.getElementById('editProfileForm');
 
   // Functions
-  const changeProfilePic = () => {
+  const changeProfilePic = (e) => {
     if (imgSelect.classList.contains('hidden')) {
       imgSelect.classList.remove('hidden');
+      e.target.innerText = 'Save changes';
 
       if (imgSelect.firstElementChild) return;
 
@@ -248,6 +265,7 @@ const openEditProfile = () => {
       });
     } else {
       imgSelect.classList.add('hidden');
+      e.target.innerText = 'Change Profile Picture';
     }
   };
 
@@ -266,12 +284,14 @@ const openEditProfile = () => {
       input.classList.remove('hidden');
       input.focus();
       label.classList.add('hidden');
+      e.target.innerText = 'Save changes';
     } else {
       input.classList.add('hidden');
       label.classList.remove('hidden');
 
       profileUsername = input.value;
       label.innerText = profileUsername;
+      e.target.innerText = 'Edit surname';
     }
   };
 
@@ -283,19 +303,45 @@ const openEditProfile = () => {
       input.classList.remove('hidden');
       input.focus();
       label.classList.add('hidden');
+      e.target.innerText = 'Save changes';
     } else {
       input.classList.add('hidden');
       label.classList.remove('hidden');
 
       profilePhone = input.value;
       label.innerText = profilePhone;
+      e.target.innerText = 'Edit phone';
     }
   };
 
   const handleEditedForm = (e) => {
     e.preventDefault();
+    const userID = localStorage.getItem('user');
 
-    console.log(profileUsername, profilePicture, profilePhone);
+    const updateFields = {
+      profileUsername,
+      profilePicture,
+      profilePhone,
+    };
+
+    // update user
+    fetch(UPDATE_USER + userID, {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(updateFields),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message === 'success') {
+          window.location = window.location;
+        } else {
+          const errMessage = document.querySelector('.errorMessage');
+          errMessage.classList.remove('hidden');
+          setTimeout(() => errMessage.classList.add('hidden'), 3000);
+        }
+      });
   };
 
   // Events
